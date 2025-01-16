@@ -25,7 +25,7 @@ ami_id="ami-0c7af5fe939f2677f" # Red Hat Enterprise Linux 9 (HVM), SSD Volume Ty
 #ami_id="ami-0b8aeb1889f1a812a" # Amazon Linux 2 with .NET 6, PowerShell, Mono, and MATE Desktop Environment
 
 # Datos IPv4
-AWS_IP_instancia1=10.0.1.100
+AWS_IP_instancia1="10.0.1.100"
 
 # Solicitar nombre y apellido
 read -p "Ingrese su nombre y apellido juntos (ejemplo: NombreApellido): " email
@@ -136,41 +136,9 @@ aws ec2 authorize-security-group-ingress \
   --port 8080 \
   --cidr 0.0.0.0/0
 
-#aws ec2 authorize-security-group-ingress \
-#  --group-id $sg_id \
-#  --protocol udp \
-#  --port 53 \
-#  --cidr 0.0.0.0/0
-
-# Permitir tráfico de salida hacia Internet en los puertos 80 (HTTP) y 443 (HTTPS)
-#aws ec2 authorize-security-group-egress \
-#  --group-id $sg_id \
-#  --protocol tcp \
-#  --port 80 \
-#  --cidr 0.0.0.0/0
-
-#aws ec2 authorize-security-group-egress \
-#  --group-id $sg_id \
-#  --protocol tcp \
-#  --port 443 \
-#  --cidr 0.0.0.0/0
-
-#aws ec2 authorize-security-group-egress \
-#  --group-id $sg_id \
-#  --protocol tcp \
-#  --port 53 \
-#  --cidr 0.0.0.0/0
-
-#aws ec2 authorize-security-group-egress \
-#  --group-id $sg_id \
-#  --protocol udp \
-#  --port 53 \
-#  --cidr 0.0.0.0/0
-
 echo "✅ Se permite tráfico de salida en los puertos 80 y 443 (HTTP, HTTPS)"
 
 # Permitir todo el tráfico interno
-#aws ec2 authorize-security-group-ingress \
 aws ec2 authorize-security-group-egress \
   --group-id $sg_id \
   --protocol -1 \
@@ -180,21 +148,8 @@ aws ec2 authorize-security-group-egress \
   --group-id $sg_id \
   --protocol -1 \
   --cidr 10.0.1.0/24
-#  --port -1 \
-#  --cidr 10.0.0.0/16
   
 echo "✅ Se permite todo el tráfico de salida"
-
-# Crear Key Pair
-#aws ec2 create-key-pair --key-name "$email" --query 'KeyMaterial' --output text > "${email}.pem"
-#chmod 400 "${email}.pem"
-#echo "✅ Par de llaves creadas: ${email}.pem"
-
-# Lanzar dos instancias Ubuntu
-#ami_id=$(aws ec2 describe-images \
-#        --filters "Name=name,Values=ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*" \
-#        --query 'Images[0].ImageId' \
-#        --output text)
 
 # Crear instancia Auditor
 instance_id1=$(aws ec2 run-instances \
@@ -204,7 +159,6 @@ instance_id1=$(aws ec2 run-instances \
               --security-group-ids $sg_id \
               --subnet-id $subnet_id \
               --block-device-mappings "[{\"DeviceName\":\"/dev/sda1\",\"Ebs\":{\"VolumeSize\":30,\"VolumeType\":\"gp3\",\"Iops\":3000,\"Throughput\":125}}]" \
-              #--user-data file://install_packages_auditor.sh \
               --private-ip-address $AWS_IP_instancia1 \
               --query 'Instances[*].InstanceId' \
               --output text \
