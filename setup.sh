@@ -65,6 +65,10 @@ subnet_id=$(aws ec2 create-subnet \
             --cidr-block 10.0.1.0/24 \
             --query 'Subnet.SubnetId' \
             --output text)
+if [ $? -ne 0 ]; then
+  echo "❌ Error al crear Subred. Abortando."
+  exit 1
+fi
 
 echo "✅ Subnet creada con ID: $subnet_id"
 
@@ -72,6 +76,10 @@ echo "✅ Subnet creada con ID: $subnet_id"
 igw_id=$(aws ec2 create-internet-gateway \
         --query 'InternetGateway.InternetGatewayId' \
         --output text)
+if [ $? -ne 0 ]; then
+  echo "❌ Error al crear Gateway. Abortando."
+  exit 1
+fi
 
 echo "✅ Internet Gateway creada con ID: $igw_id"
 
@@ -79,6 +87,10 @@ echo "✅ Internet Gateway creada con ID: $igw_id"
 aws ec2 attach-internet-gateway \
   --vpc-id $vpc_id \
   --internet-gateway-id $igw_id
+if [ $? -ne 0 ]; then
+  echo "❌ Error al Asociar Gateway a VPC. Abortando."
+  exit 1
+fi
 
 echo "✅ Internet Gateway asociada a la VPC"
 
@@ -87,6 +99,10 @@ route_table_id=$(aws ec2 create-route-table \
                 --vpc-id $vpc_id \
                 --query 'RouteTable.RouteTableId' \
                 --output text)
+if [ $? -ne 0 ]; then
+  echo "❌ Error al Tabla de Rutas. Abortando."
+  exit 1
+fi
 
 echo "✅ Tabla de rutas creada con ID: $route_table_id"
 
@@ -112,6 +128,10 @@ sg_id=$(aws ec2 create-security-group \
       --vpc-id $vpc_id \
       --query 'GroupId' \
       --output text)
+if [ $? -ne 0 ]; then
+  echo "❌ Error al crear Grupo de Seguridad. Abortando."
+  exit 1
+fi
 
 echo "✅ Security Group creado con ID: $sg_id"
 
@@ -170,7 +190,10 @@ instance_id1=$(aws ec2 run-instances \
               --query 'Instances[*].InstanceId' \
               --output text \
               --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Auditor}]')
-
+if [ $? -ne 0 ]; then
+  echo "❌ Error al crear Instancia. Abortando."
+  exit 1
+fi
 
 echo "✅ Instancias lanzadas con los siguientes IDs: $instance_id1"
 
