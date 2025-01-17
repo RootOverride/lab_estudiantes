@@ -6,14 +6,21 @@ echo "#                               Escuela de Tegnologías Aplicadas | Instit
 echo "############################################################################################################################"
 echo ""
 
+# Linux
 ami_id="ami-0c7af5fe939f2677f" # Red Hat Enterprise Linux 9 (HVM), SSD Volume Type
-#ami_id="ami-05576a079321f21f8" # AMI de Amazon Linux 2023
-#ami_id="ami-0454e52560c7f5c55" # Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type
 #ami_id="ami-0cd60fd97301e4b49" # SUSE Linux Enterprise Server 15 SP6 (HVM), SSD Volume Type
+#ami_id="ami-0fb850c7ef7d832e1" # SUSE Linux Enterprise Server 12 SP5 (HVM), SSD Volume Type
 #ami_id="ami-04b4f1a9cf54c11d0" # Ubuntu Server 24.04 LTS (HVM), SSD Volume Type
 #ami_id="ami-0e1bed4f06a3b463d" # Ubuntu Server 22.04 LTS (HVM), SSD Volume Type
-#ami_id="ami-09ec59ede75ed2db7" # Microsoft Windows Server 2025 Base
 #ami_id="ami-064519b8c76274859" # Debian 12 (HVM), SSD Volume Type
+
+# AWS
+#ami_id="ami-05576a079321f21f8" # AMI de Amazon Linux 2023
+#ami_id="ami-0454e52560c7f5c55" # Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type
+#ami_id="ami-0b8aeb1889f1a812a" # Amazon Linux 2 with .NET 6, PowerShell, Mono, and MATE Desktop Environment
+
+# Windows
+#ami_id="ami-09ec59ede75ed2db7" # Microsoft Windows Server 2025 Base
 #ami_id="ami-0a9ddfd0e84a3031f" # Microsoft Windows Server 2025 Core Base
 #ami_id="ami-0b1f2b17be9b81cdc" # Microsoft Windows Server 2022 Base
 #ami_id="ami-0c915868b91bfe560" # Microsoft Windows Server 2022 Core Base
@@ -21,8 +28,8 @@ ami_id="ami-0c7af5fe939f2677f" # Red Hat Enterprise Linux 9 (HVM), SSD Volume Ty
 #ami_id="ami-0fc979e08f3ef6675" # Microsoft Windows Server 2019 Core Base
 #ami_id="ami-0e919d6fa900d3719" # Microsoft Windows Server 2016 Base
 #ami_id="ami-0c1af728dd96bf232" # Microsoft Windows Server 2016 Core Base
-#ami_id="ami-0fb850c7ef7d832e1" # SUSE Linux Enterprise Server 12 SP5 (HVM), SSD Volume Type
-#ami_id="ami-0b8aeb1889f1a812a" # Amazon Linux 2 with .NET 6, PowerShell, Mono, and MATE Desktop Environment
+
+
 
 # Datos IPv4
 AWS_IP_instancia1="10.0.1.100"
